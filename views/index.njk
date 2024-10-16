@@ -1,0 +1,31 @@
+{% extends "base.njk" %}
+{% block title %}投稿画面{% endblock %}
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+<script src="/validation.js" defer></script>
+<script src="/main.js" defer></script>
+{% endblock %}
+{% block content %}
+<form class="text-end mb-3" method="post" action="sign-out">
+   <input type="submit" class="btn btn-primary" value="サインアウト">
+</form>
+   <div class="post-form">
+     <div class="pb-2 border-bottom mb-3">
+       <form method="post" action="http://localhost:3000/posts">
+         <textarea name="content" class="form-control" id="content" rows="3" placeholder="いまどうしてる？" required></textarea>
+         <p id="warning" class="text-danger"></p>
+         <div class="mt-2 me-2 text-end">
+          <input type="submit" id="submitButton" class="btn btn-primary rounded-pill" value="ポストする">
+         </div>
+        </form>
+    </div>
+</div>
+<div id="timeline">
+  {% for post in posts %}
+    <div class="border border-radius">
+     <p>{{ post.User.username }} {{ post.createdAt | formatDate }}</p>
+     <p>{{ post.content }}</p>
+    </div>
+   {% endfor %}
+</div>
+{% endblock %}
